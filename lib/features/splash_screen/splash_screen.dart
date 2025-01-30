@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foody/const/const_color.dart';
-import 'package:foody/sign_in_screen/presentation/pages/sign_in_screen.dart';
 import 'package:splash_view/source/presentation/pages/pages.dart';
 import 'package:splash_view/source/presentation/widgets/done.dart';
+
+import '../sign_in_screen/presentation/pages/sign_in_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

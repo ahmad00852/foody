@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foody/Widgets/drop_down_widget.dart';
-import 'package:form_filed_drop_down/form_filed_drop_down.dart';
 
-import '../../../Widgets/text_feild.dart';
-import '../../../const/const_color.dart';
+import '../../../../Widgets/text_feild.dart';
+import '../../../../const/const_color.dart';
 
 class SignUpAddressScreen extends StatefulWidget {
   const SignUpAddressScreen({super.key});

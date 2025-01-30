@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foody/const/const_color.dart';
-import 'package:foody/home/presentation/pages/home_screen.dart';
+import 'package:foody/features/home/presentation/pages/home_layout.dart';
+
 
 class SuccessSignInScreen extends StatelessWidget {
   const SuccessSignInScreen({super.key});
@@ -30,7 +31,7 @@ class SuccessSignInScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                      MaterialPageRoute(builder: (context) => HomeLayout()));
                 },
                 child: Container(
                   width: 200,

@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foody/sign_up_screen/presentation/pages/sign_up_address_screen.dart';
+import 'package:foody/features/sign_in_screen/data/models/users.dart';
 
-import '../../../Widgets/text_feild.dart';
-import '../../../const/const_color.dart';
+import '../../../../Widgets/text_feild.dart';
+import '../../../../const/const_color.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -32,17 +33,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: Container(
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                        color: ConstColor().mainColor,
-                        borderRadius: BorderRadius.circular(4)
+                          color: ConstColor().mainColor,
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.white,
                       ),
-                      child: Icon(Icons.arrow_back_ios_rounded,color: Colors.white,),
                     ),
                   ),
                   15.horizontalSpace,
@@ -67,13 +70,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               textFormFieldWidget(
                   textFormName: 'Full Name',
                   validator: (value) {
-                    if (value !=null && value.length >= 10) {
+                    if (value != null && value.length >= 10) {
                       return null;
                     } else {
                       return 'Enter a password longer than 5 characters';
                     }
                   },
-                  controller: emailController,
+                  controller: nameController,
                   hintText: 'Type your full name'),
               16.verticalSpace,
               textFormFieldWidget(
@@ -101,7 +104,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   hintText: 'Type your password'),
               24.verticalSpace,
               GestureDetector(
-                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpAddressScreen()));},
+                onTap: () {
+                  FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text)
+                      .then((signedInUser) {
+                        UserManagement().storeNewUser(signedInUser.user, context);
+                  })
+                      .catchError((e) {
+                    print(e);
+                  });
+                },
                 child: Container(
                   width: double.infinity,
                   height: 50,
@@ -110,9 +124,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                       child: Text(
-                        'Continue',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      )),
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  )),
                 ),
               ),
               12.verticalSpace,

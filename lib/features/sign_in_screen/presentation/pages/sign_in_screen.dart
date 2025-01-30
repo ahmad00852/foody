@@ -1,11 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foody/Widgets/facebook_google_widget.dart';
 import 'package:foody/Widgets/text_feild.dart';
 import 'package:foody/const/const_color.dart';
-import 'package:foody/home/presentation/pages/home_screen.dart';
-import 'package:foody/scr/success_sign_in_screen.dart';
-import 'package:foody/sign_up_screen/presentation/pages/sign_up_screen.dart';
+import 'package:foody/features/scr/success_sign_in_screen.dart';
+import '../../../sign_up_screen/presentation/pages/sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -66,7 +66,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   hintText: 'Type your password'),
               24.verticalSpace,
               GestureDetector(
-                onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SuccessSignInScreen()));},
+                onTap: () {
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text)
+                      .then((user) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SuccessSignInScreen()));
+                  }).catchError((onError){print(onError);});
+                },
                 child: Container(
                   width: double.infinity,
                   height: 50,

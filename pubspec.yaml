@@ -38,6 +38,14 @@ dependencies:
   splash_view: ^2.0.1
   flutter_screenutil: ^5.9.3
   form_filed_drop_down: ^3.0.7+2
+  flutter_rating_bar: ^4.0.1
+  simple_star_rating: ^0.0.3
+  floating_navigation_bar: ^0.0.5
+  persistent_bottom_nav_bar_v2: ^5.3.1
+  flutter_svg: ^2.0.17
+  firebase_auth: ^5.4.1
+  cloud_firestore: ^5.6.2
+  flutter_bloc: ^9.0.0
 
 dev_dependencies:
   flutter_test:
