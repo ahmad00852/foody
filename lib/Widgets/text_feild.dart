@@ -15,7 +15,6 @@ required String hintText,
         Text(' $textFormName',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
         5.verticalSpace,
         SizedBox(
-          height: 45,
           child: TextFormField(
             controller: controller,
             validator: validator,

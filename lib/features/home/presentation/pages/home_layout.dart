@@ -20,32 +20,35 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
         body:PersistentTabView(
+          navBarHeight: 70,
           tabs: [
             PersistentTabConfig(
               screen: HomeScreen(),
               item: ItemConfig(
                 activeForegroundColor: ConstColor().mainColor,
-                icon: Icon(Icons.home_filled),
+                icon: Icon(Icons.home_filled,size: 35,),
               ),
             ),
             PersistentTabConfig(
               screen: const OrdersScreen(),
               item: ItemConfig(
                 activeForegroundColor: ConstColor().mainColor,
-                icon: const Icon(Icons.shopping_bag,),
+                icon: const Icon(Icons.shopping_bag,size: 35,),
               ),
             ),
             PersistentTabConfig(
               screen: const ProfileScreen(),
               item: ItemConfig(
                 activeForegroundColor: ConstColor().mainColor,
-                icon: const Icon(Icons.person),
+                icon: const Icon(Icons.person,size: 35,),
               ),
             ),
           ],
           navBarBuilder: (navBarConfig) => Style1BottomNavBar(
             navBarConfig: navBarConfig,
-            navBarDecoration: NavBarDecoration(),
+            navBarDecoration: NavBarDecoration(
+
+            ),
           ),
         ),
     );
