@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foody/const/const_color.dart';
+import 'package:foody/features/sign_in_screen/data/data_sources/data_provider.dart';
 import 'package:foody/features/sign_in_screen/presentation/bloc/sign_in_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:splash_view/source/presentation/pages/pages.dart';
 import 'package:splash_view/source/presentation/widgets/done.dart';
 
@@ -24,7 +26,7 @@ class SplashScreen extends StatelessWidget {
       ),
       done: Done(BlocProvider(
         create: (context) => SignInBloc(),
-        child: SignInScreen(),
+        child: ChangeNotifierProvider<DataProvider>(create: (context)=>DataProvider(),child: SignInScreen(),),
       )),
     );
   }

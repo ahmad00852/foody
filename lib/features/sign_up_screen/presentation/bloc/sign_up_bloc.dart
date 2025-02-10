@@ -3,7 +3,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foody/features/sign_in_screen/presentation/pages/success_sign_in_screen.dart';
-import 'package:foody/features/sign_up_screen/data/models/users.dart';
+import 'package:foody/features/sign_up_screen/data/data_sources/store_new_user.dart';
 import 'package:meta/meta.dart';
 
 part 'sign_up_event.dart';

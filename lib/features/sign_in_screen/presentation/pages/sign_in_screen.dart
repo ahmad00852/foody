@@ -4,10 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foody/Widgets/facebook_google_widget.dart';
 import 'package:foody/Widgets/text_feild.dart';
 import 'package:foody/const/const_color.dart';
+import 'package:foody/features/sign_in_screen/data/data_sources/data_provider.dart';
 import 'package:foody/features/sign_in_screen/presentation/bloc/sign_in_bloc.dart';
 import 'package:foody/features/sign_up_screen/presentation/bloc/sign_up_bloc.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:provider/provider.dart';
 
 import '../../../sign_up_screen/presentation/pages/sign_up_screen.dart';
+import '../widgets/password_text_feild_widget.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -19,7 +23,6 @@ class SignInScreen extends StatefulWidget {
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final formKey = GlobalKey<FormState>();
-
 class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     controller: emailController,
                     hintText: 'Type your email address'),
                 16.verticalSpace,
-                textFormFieldWidget(
+                passwordTextFormFieldWidget(
                     textFormName: 'Password',
                     validator: (value) {
                       if (value != null && value.length >= 6) {
@@ -66,7 +69,15 @@ class _SignInScreenState extends State<SignInScreen> {
                       }
                     },
                     controller: passwordController,
-                    hintText: 'Type your password'),
+                    hintText: 'Type your password',
+                    isSecure:Provider.of<DataProvider>(context).isSecure,
+                    icon: IconButton(
+                        onPressed: () {
+                          Provider.of<DataProvider>(context,listen: false).isSecure
+                              ? context.read<DataProvider>().changeSecure(false)
+                              : context.read<DataProvider>().changeSecure(true);
+                        },
+                        icon: Provider.of<DataProvider>(context).isSecure?Icon(AntDesign.eye_fill):Icon(AntDesign.eye_invisible_fill))),
                 24.verticalSpace,
                 BlocBuilder<SignInBloc, SignInState>(
                   builder: (context, state) {
@@ -122,10 +133,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    facebookGoogleWidget(
-                        name: 'facebook', imageName: 'facebook'),
-                    10.horizontalSpace,
-                    facebookGoogleWidget(name: 'google', imageName: 'google'),
+                    GestureDetector(
+                        onTap: (){BlocProvider.of<SignInBloc>(context).add(SignInWithGoogle(context: context));},
+                        child: facebookGoogleWidget(name: 'google', imageName: 'google')),
                   ],
                 ),
                 24.verticalSpace,

@@ -1,15 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:simple_star_rating/simple_star_rating.dart';
 
 Widget foodWidget(
     {required String foodName,
-      required String imageName,
-      required String description,
-      required double rate,
-      required int id,
-      required context}) {
+    required String imageName,
+    required String description,
+    required double rate,
+    required context}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -29,8 +26,8 @@ Widget foodWidget(
         Container(
           decoration: const BoxDecoration(),
           height: 140,
-          width: 200,
-          child: Image.asset(
+          width: 220,
+          child: Image.network(
             imageName,
             fit: BoxFit.cover,
             width: 220,
@@ -52,14 +49,21 @@ Widget foodWidget(
           child: Row(
             children: [
               SimpleStarRating(
-                filledIcon: Icon(Icons.star,color: Colors.red,size: 20,),
-                nonFilledIcon: Icon(Icons.star,color: Colors.grey.shade300,size: 20,),
+                filledIcon: Icon(
+                  Icons.star,
+                  color: Colors.red,
+                  size: 20,
+                ),
+                nonFilledIcon: Icon(
+                  Icons.star,
+                  color: Colors.grey.shade300,
+                  size: 20,
+                ),
                 isReadOnly: true,
                 allowHalfRating: true,
                 starCount: 5,
-                rating: rate,
-                onRated: (rate) {
-                },
+                rating: rate.round().toDouble(),
+                onRated: (rate) {},
                 spacing: 0,
               ),
               const SizedBox(

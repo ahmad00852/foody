@@ -1,35 +1,33 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foody/features/orders/data/data_sources/order_service.dart';
-import 'package:foody/features/orders/data/models/order_model.dart';
 
 import '../../../../const/const_color.dart';
+import '../../data/data_sources/order_service.dart';
 
-class PaymentScreen extends StatefulWidget {
-  const PaymentScreen(
+class OrderDetails extends StatefulWidget {
+  const OrderDetails(
       {super.key,
       required this.count,
       required this.imageName,
       required this.foodName,
-      required this.foodPrice});
+      required this.foodPrice,
+      required this.index,
+      required this.isDone
+      });
 
   final int count;
   final String imageName;
   final String foodName;
   final double foodPrice;
+  final int index;
+  final bool isDone;
 
   @override
-  State<PaymentScreen> createState() => _PaymentScreenState();
+  State<OrderDetails> createState() => _OrderDetailsState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen> {
-  final OrderService _orderService = OrderService();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class _OrderDetailsState extends State<OrderDetails> {
+  final OrderService orderService = OrderService();
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +129,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Text(
                         '${widget.count} items',
                         style: TextStyle(
-                            color: ConstColor().secondTextColor,
-                            fontSize: 16),
+                            color: ConstColor().secondTextColor, fontSize: 16),
                       )
                     ],
                   ),
@@ -199,19 +196,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ],
             ),
             50.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text('Order Status:',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+              widget.isDone?Text(
+                'completed',
+                style: TextStyle(color: Colors.green),
+              ):Text(
+                'in progress',
+                style: TextStyle(color: ConstColor().mainColor),
+              ),
+            ],),
+            30.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('To inquire about the order:'),
+                Container(
+                    decoration: BoxDecoration(border: Border(
+                      bottom: BorderSide(color: ConstColor().mainColor)
+                    )),
+                    child: Text('+963111112244',style: TextStyle(color: ConstColor().mainColor,),))
+              ],
+            ),
+            30.verticalSpace,
             InkWell(
-              onTap: () async{
-                BotToast.showLoading();
-                await Future.delayed(Duration(seconds: 2));
-                final double totalPrice =
-                    (((widget.count) * widget.foodPrice) +
-                        ((((widget.foodPrice) * 10) / 100) * (widget.count)));
-                var order = OrderModel(widget.imageName, DateTime.now(),
-                    false, widget.foodName, totalPrice, widget.count);
-                await _orderService.addOrder(order);
-                BotToast.closeAllLoading();
-                BotToast.showText(text: 'Order Added');
-                },
+              onTap: ()  {
+                orderService.deleteOrder(widget.index);
+                Navigator.pop(context);
+              },
               child: Container(
                 width: double.infinity,
                 height: 50,
@@ -220,7 +234,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     color: ConstColor().mainColor),
                 child: Center(
                     child: Text(
-                  'Checkout Now',
+                  'Cancel My Order',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

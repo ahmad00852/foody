@@ -3,6 +3,7 @@ import 'package:foody/const/const_color.dart';
 import 'package:foody/features/home/presentation/pages/home_screen.dart';
 import 'package:foody/features/orders/presentation/pages/orders_screen.dart';
 import 'package:foody/features/profile/presentation/pages/profile_screen.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -15,22 +16,25 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   int currentIndex = 0;
   List<Widget> buildScreens = [ const HomeScreen(), const OrdersScreen(), ProfileScreen()];
+  PersistentTabController controller = PersistentTabController(initialIndex: 0);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body:PersistentTabView(
+          controller: controller,
           navBarHeight: 70,
           tabs: [
             PersistentTabConfig(
               screen: HomeScreen(),
               item: ItemConfig(
                 activeForegroundColor: ConstColor().mainColor,
-                icon: Icon(Icons.home_filled,size: 35,),
+                icon: Icon(AntDesign.home_fill,size: 35,),
               ),
             ),
             PersistentTabConfig(
-              screen: const OrdersScreen(),
+              screen:  OrdersScreen(),
               item: ItemConfig(
                 activeForegroundColor: ConstColor().mainColor,
                 icon: const Icon(Icons.shopping_bag,size: 35,),
@@ -47,7 +51,6 @@ class _HomeLayoutState extends State<HomeLayout> {
           navBarBuilder: (navBarConfig) => Style1BottomNavBar(
             navBarConfig: navBarConfig,
             navBarDecoration: NavBarDecoration(
-
             ),
           ),
         ),

@@ -9,3 +9,10 @@ final String password;
 final context;
   SignIn({required this.email, required this.password,required this.context});
 }
+class SignInWithGoogle extends SignInEvent{
+  final context;
+
+  SignInWithGoogle({
+    required this.context,
+  });
+}

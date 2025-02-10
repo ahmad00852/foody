@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foody/const/const_color.dart';
-Widget textFormFieldWidget(
-{required String textFormName,
-required String hintText,
-  required FormFieldValidator<String> validator,
-  required TextEditingController controller,
-}
+Widget passwordTextFormFieldWidget(
+    {required String textFormName,
+      required String hintText,
+      required FormFieldValidator<String> validator,
+      required TextEditingController controller,
+      required bool isSecure,
+      required IconButton icon
+    }
     ){
   return SizedBox(
     child: Column(
@@ -16,12 +18,14 @@ required String hintText,
         5.verticalSpace,
         SizedBox(
           child: TextFormField(
+            obscureText: isSecure,
             controller: controller,
             validator: validator,
             cursorColor: ConstColor().secondTextColor,
             decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: TextStyle(color: ConstColor().secondTextColor),
+              suffixIcon: icon,
+                hintText: hintText,
+                hintStyle: TextStyle(color: ConstColor().secondTextColor),
                 border: const OutlineInputBorder(),
                 errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),

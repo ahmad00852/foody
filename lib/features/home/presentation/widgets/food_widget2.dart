@@ -4,7 +4,6 @@ import 'package:simple_star_rating/simple_star_rating.dart';
 Widget food2Widget(
     {required String imageName1,
       required String foodName1,
-      required double idr,
       required double rate,
       required String description,
       required String ingredients,
@@ -23,8 +22,13 @@ Widget food2Widget(
             SizedBox(
               child: Row(
                 children: [
-                  SizedBox(
-                    child: Image.asset(imageName1),
+                  Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.network(
+                      height: 60,
+                      width: 60,
+                      imageName1,fit: BoxFit.cover,),
                   ),
                   const SizedBox(
                     width: 10,
@@ -39,7 +43,7 @@ Widget food2Widget(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'IDR $idr',
+                        'Price: $price \$',
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ],
@@ -57,7 +61,7 @@ Widget food2Widget(
                     isReadOnly: true,
                     allowHalfRating: true,
                     starCount: 5,
-                    rating: rate,
+                    rating: rate.round().toDouble(),
                     onRated: (rate) {
                     },
                     spacing: 3,
